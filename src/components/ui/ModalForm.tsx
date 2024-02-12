@@ -29,7 +29,7 @@ const MyModalForm = ({
   };
 
   const onFinish = (values: any) => {
-    console.log("Received values:", values);
+    // console.log("Received values:", values);
   };
 
   const onFinishFailed = (errorInfo: any) => {

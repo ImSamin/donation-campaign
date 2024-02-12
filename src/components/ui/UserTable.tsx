@@ -1,4 +1,4 @@
-import { getDonationByUserId } from "@/utils/getDonationByuserId";
+"use client";
 import { Table } from "antd";
 
 const columns = [
@@ -24,10 +24,9 @@ const columns = [
   },
 ];
 
-const UserTable = async () => {
-  const { data } = await getDonationByUserId();
+const UserTable = ({ data }: any) => {
   let tableData: any = [];
-  data.map((tData: any) => {
+  data?.data?.map((tData: any) => {
     tableData.push({
       key: tData._id,
       name: tData.userId.name,
@@ -36,7 +35,6 @@ const UserTable = async () => {
       date: "2024-02-15",
     });
   });
-  console.log(tableData);
   return <Table columns={columns} dataSource={tableData} pagination={false} />;
 };
 

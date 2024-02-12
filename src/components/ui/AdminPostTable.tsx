@@ -2,7 +2,9 @@
 import { deletePost } from "@/utils/deletePost";
 import { updatePost } from "@/utils/updatePost";
 import { Button, Form, Input, Modal, Table } from "antd";
+import Link from "next/link";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const { TextArea } = Input;
 
@@ -59,23 +61,32 @@ const AdminPostTable: React.FC<AdminPostTableProps> = ({ data }) => {
     if (postData) {
       ID = id;
       setFormData({ ...postData, id });
-      console.log(ID);
+      // console.log(ID);
 
       setIsModalVisible(true);
     } else {
-      console.log("Post data not found for ID:", id);
+      // console.log("Post data not found for ID:", id);
     }
   };
 
   const handleDelete = async (id: string) => {
-    console.log(await deletePost(id), id);
+    const result = await deletePost(id);
+    if (result.success) {
+      toast.success("Delete successfully");
+    } else {
+      toast.error("Failed");
+    }
   };
   const onFinish = async () => {
     const values = await form.validateFields();
     console.log("Received values:", values);
 
     const result = await updatePost(values, ID);
-    console.log(result);
+    if (result.success) {
+      toast.success("Update successfully");
+    } else {
+      toast.error("Failed");
+    }
   };
 
   return (
@@ -94,6 +105,18 @@ const AdminPostTable: React.FC<AdminPostTableProps> = ({ data }) => {
           title="Raised Amount"
           dataIndex="raisedAmount"
           key="raisedAmount"
+        />
+        <Column
+          title="Statistics"
+          key="id"
+          dataIndex="id"
+          render={(id) => (
+            <>
+              <Link href={`/admin/stats/${id}`}>
+                <p>Stats</p>
+              </Link>
+            </>
+          )}
         />
         <Column
           title="Edit"

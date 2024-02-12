@@ -1,8 +1,8 @@
 "use client";
 
 import logo from "@/assets/Logo.png";
-import { Button, Layout, Menu, Typography } from "antd";
-import { signOut } from "next-auth/react";
+import { Button, Layout, Menu, Typography, theme } from "antd";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -17,13 +17,20 @@ const items = [
 ];
 interface NavbarProps {
   content: ReactNode;
-  session: boolean; // You can adjust the type of session as per your requirements
+  session: boolean;
 }
 
 const Navbar = ({ content, session }: NavbarProps) => {
+  const { data: session2, status } = useSession<any>();
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
+  const role = (session2 as unknown as { role: string })?.role;
+
   const pathname = usePathname();
   const router = useRouter();
-
+  const dashboardLink = role === "admin" ? "/admin/dashboard" : "/dashboard";
   return (
     <Layout className="    bg-white mx-auto  h-screen">
       <Header className="flex items-center  bg-white ">
@@ -55,7 +62,7 @@ const Navbar = ({ content, session }: NavbarProps) => {
           {session ? (
             <>
               <Menu.Item key="5">
-                <Link href="/dashboard">Dashboard</Link>
+                <Link href={dashboardLink}>Dashboard</Link>
               </Menu.Item>
 
               <Button
@@ -86,7 +93,17 @@ const Navbar = ({ content, session }: NavbarProps) => {
           )}
         </Menu>
       </Header>
-      <div className="">{content}</div>
+      <Content
+        style={{
+          margin: "24px 16px",
+          padding: 24,
+          minHeight: 280,
+          background: colorBgContainer,
+          borderRadius: borderRadiusLG,
+        }}
+      >
+        {content}
+      </Content>
     </Layout>
   );
 };

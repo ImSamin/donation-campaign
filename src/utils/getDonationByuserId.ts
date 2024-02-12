@@ -5,7 +5,11 @@ export const getDonationByUserId = async () => {
   const session = await getServerSession(authOptions);
   const res = await fetch(
     `https://donation-campaign-backend.vercel.app/api/v1/donation/?id=${session?.id}`,
-    { cache: "no-store" }
+    {
+      next: {
+        revalidate: 15,
+      },
+    }
   );
 
   return res.json();

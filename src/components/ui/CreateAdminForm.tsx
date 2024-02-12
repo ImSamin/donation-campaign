@@ -1,10 +1,10 @@
 "use client";
 import { createAdmin } from "@/utils/createAdmin";
 import { Button, Form, Input } from "antd";
+import toast from "react-hot-toast";
 
 const CreateAdminForm = () => {
   const onFinish = async (values: any) => {
-    console.log("Received values:", values);
     const { name, email, password } = values;
     const result = await createAdmin({
       name,
@@ -12,6 +12,12 @@ const CreateAdminForm = () => {
       password,
       role: "admin",
     });
+
+    if (result.success) {
+      toast.success("Create admin successfully");
+    } else {
+      toast.error("Failed");
+    }
 
     console.log(result);
   };

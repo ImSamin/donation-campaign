@@ -4,19 +4,28 @@ import { createUser } from "@/utils/createUser";
 import { Button, Form, Input, Typography } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const { Title } = Typography;
 
 const SignUp = () => {
-  const onFinish = (values: any) => {
-    console.log("Received values:", values);
+  const router = useRouter();
+  const onFinish = async (values: any) => {
+    // console.log("Received values:", values);
     const { name, email, password } = values;
-    createUser({
+    const result = await createUser({
       name,
       email,
       password,
       role: "user",
     });
+    if (result?.success) {
+      toast.success("User Created Successfully");
+      router.push("/login");
+    } else {
+      toast.error("Failed");
+    }
   };
 
   return (

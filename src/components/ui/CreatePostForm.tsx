@@ -1,10 +1,10 @@
 "use client";
 import { createPost } from "@/utils/createPost";
 import { Button, Form, Input, InputNumber } from "antd";
+import toast from "react-hot-toast";
 
 const CreatePostForm = () => {
   const onFinish = async (values: any) => {
-    console.log("Submitted Post:", values);
     const { title, description, category, targetAmount, raisedAmount, image } =
       values;
     const result = await createPost({
@@ -15,7 +15,11 @@ const CreatePostForm = () => {
       raisedAmount,
       image,
     });
-    console.log(result);
+    if (result.success) {
+      toast.success("Create Post successfully");
+    } else {
+      toast.error("Failed");
+    }
     // You can handle the submission of the post data (values) here
   };
 

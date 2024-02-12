@@ -2,17 +2,34 @@
 import detailsImage from "@/assets/Rectangle 4288.png";
 import { sendDonate } from "@/utils/sendDonate";
 import { Button } from "antd";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
-const SinglePage = ({ data, id }: {data:any, id: string}) => {
-  console.log(data);
+const SinglePage = ({ data }: { data: any }) => {
+  const { data: session, status } = useSession();
+
+  const router = useRouter();
+
   const handleDonate = async () => {
+    if (status !== "authenticated") {
+      router.push("/login");
+      return;
+    }
+
     const result = await sendDonate({
-      userId: id,
+      userId: (session as any)?.id,
+
       postId: data.data._id,
       donateAmount: 290,
     });
-    console.log(result);
+
+    if (result.success) {
+      toast.success("Donate $290 successfully");
+    } else {
+      toast.error("Failed");
+    }
   };
   const { title, description } = data.data;
   return (

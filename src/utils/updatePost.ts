@@ -1,5 +1,5 @@
-export const updatePost = async (data:any, id:any) => {
-  console.log(id);
+export const updatePost = async (data: any, id: any) => {
+  // console.log(id);
   const res = await fetch(
     `https://donation-campaign-backend.vercel.app/api/v1/donation-post/update/${id}`,
     {
