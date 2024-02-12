@@ -1,37 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Donation Campaign Management System
+
+Welcome to the Donation Campaign Management System! This system is designed to facilitate the management of donation campaigns, allowing users to view, donate, and manage donation posts effectively.
+
+## Live URL
+
+You can access the live version of the application at [Live Demo](https://donation-campaign-three.vercel.app).
+
+## Features
+
+### User Features
+
+- **View Donation Posts**: Users can view available donation posts.
+- **Donate**: Users can make donations to the posted campaigns.
+- **View Donation History**: Users can see which donation posts they have contributed to, which is displayed in their user dashboard.
+
+### Admin Features
+
+- **Create/Update/Delete Donation Posts**: Admins have full control over donation posts, including creating, updating, and deleting them.
+- **View Donation Statistics**: Admins can view detailed statistics for each donation post, including target amount, raised amount, and percentage achieved.
+- **Create Other Admins**: Admins have the authority to create additional administrators for the system.
+- **Pie Chart**: The system calculates and visually displays the percentage of the target amount achieved for each donation post in a pie chart.
+
+- **Fetch All Donations**: Users and admins can access all donation posts available in the system.
+- **Fetch a Single Donation by ID**: Users can retrieve specific donation posts by their unique IDs.
+- **Create New Donations**: Admins can create new donation posts for fundraising campaigns.
+- **Update Donation Details**: Admins can update the details of existing donation posts.
+- **Retrieve User Donations**: Users can retrieve their donation history, including all donations they have made.
+
+## Technologies Used
+
+- **Frontend**: Next.js, React.js, Ant Design, Recharts, Tailwind.css
+- **Backend**: Node.js,Express,Mongoose, MongoDB
+- **Authentication**: JWT (JSON Web Tokens)
 
 ## Getting Started
 
-First, run the development server:
+To get started with the Donation Campaign Management System:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# donation-campaign
+1. Clone this repository.
+2. Install dependencies using `npm install`.
+3. Configure your MongoDB database and update environment variables.
+4. Run the backend server using `npm run dev`.
+5. Run the frontend application using `npm run dev`.
