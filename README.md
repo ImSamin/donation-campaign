@@ -6,6 +6,11 @@ Welcome to the Donation Campaign Management System! This system is designed to f
 
 You can access the live version of the application at [Live Demo](https://donation-campaign-three.vercel.app).
 
+### for testing you can login by this creditials
+
+- **User**: user@gmail.com , pass: 123456,
+- **Admin**: admin@gmail.com , pass: 123456
+
 ## Features
 
 ### User Features
