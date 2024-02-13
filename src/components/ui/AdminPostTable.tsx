@@ -91,7 +91,7 @@ const AdminPostTable: React.FC<AdminPostTableProps> = ({ data }) => {
 
   return (
     <>
-      <Table dataSource={data}>
+      <Table dataSource={data} scroll={{ x: 700 }}>
         {/* Columns definition */}
         <Column title="Title" dataIndex="title" key="title" />
         <Column title="Category" dataIndex="category" key="category" />

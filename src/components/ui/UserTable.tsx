@@ -17,22 +17,16 @@ const columns = [
     dataIndex: "amount",
     key: "amount",
   },
-  {
-    title: "Date",
-    dataIndex: "date",
-    key: "date",
-  },
 ];
 
 const UserTable = ({ data }: any) => {
   let tableData: any = [];
   data?.data?.map((tData: any) => {
     tableData.push({
-      key: tData._id,
-      name: tData.userId.name,
-      donationTitle: tData.postId.title,
-      amount: tData.donateAmount,
-      date: "2024-02-15",
+      key: tData?._id,
+      name: tData?.userId.name,
+      donationTitle: tData.postId?.title,
+      amount: tData?.donateAmount,
     });
   });
   return <Table columns={columns} dataSource={tableData} pagination={false} />;

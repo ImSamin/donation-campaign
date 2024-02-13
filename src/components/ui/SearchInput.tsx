@@ -1,38 +1,36 @@
 "use client";
+import { getAllPosts } from "@/utils/getAllPosts";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input } from "antd";
-import { useForm } from "react-hook-form";
-
-interface FormData {
-  search: string;
-}
+import React, { useState } from "react";
 
 const SearchInput: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormData>();
+  const [search, setSearch] = useState<string>("");
 
-  const onSubmit = (data: FormData) => {
-    // console.log("Search:", data.search);
+  const handleSearch = async () => {
+    const result = await getAllPosts(search);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex items-center ">
+    <div className="flex items-center">
       <Input
-        className="w-80 rounded-r-none focus:ring-red-600 "
+        className="w-80 rounded-r-none focus:ring-red-600"
         size="large"
         placeholder="Search Donation Category"
-        {...register("search")}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
       />
       <Button
-        htmlType="submit"
         className="rounded-l-none border-r-0"
         type="primary"
         danger
         size="large"
         icon={<SearchOutlined />}
+        onClick={handleSearch}
       >
         Search
       </Button>
-    </form>
+    </div>
   );
 };
 

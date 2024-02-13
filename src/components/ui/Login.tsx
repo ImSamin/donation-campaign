@@ -5,8 +5,7 @@ import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-// Correct import for useRouter
+import Loading from "./../../app/loading";
 
 const { Title } = Typography;
 
@@ -15,7 +14,7 @@ const Login = () => {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (status === "authenticated") {
@@ -24,6 +23,7 @@ const Login = () => {
     } else {
       router.push("/dashboard");
     }
+    return null;
   }
 
   let callbackUrl: string;
@@ -44,44 +44,48 @@ const Login = () => {
   };
   if (!session) {
     return (
-      <div className="flex flex-col items-center justify-center h-full">
-        <Link href="/">
-          <Image
-            src={logo}
-            alt="Logo"
-            width={120}
-            height={60}
-            className="mb-4"
-          />
-        </Link>
+      <div className="p-10 mt-12 shadow-md rounded">
+        <div className="flex flex-col items-center justify-center h-full">
+          <Link href="/">
+            <Image
+              src={logo}
+              alt="Logo"
+              width={130}
+              height={60}
+              className="mb-4"
+            />
+          </Link>
 
-        <Title level={2}>Sign In</Title>
+          <Title level={2}>Sign In</Title>
 
-        <Form onFinish={onFinish} className="w-72">
-          <Form.Item
-            name="email"
-            rules={[{ required: true, message: "Please input your email!" }]}
-          >
-            <Input placeholder="Email" />
-          </Form.Item>
+          <Form onFinish={onFinish} className="w-72">
+            <Form.Item
+              name="email"
+              rules={[{ required: true, message: "Please input your email!" }]}
+            >
+              <Input placeholder="Email" />
+            </Form.Item>
 
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
-            <Input.Password placeholder="Password" />
-          </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[
+                { required: true, message: "Please input your password!" },
+              ]}
+            >
+              <Input.Password placeholder="Password" />
+            </Form.Item>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit" className="w-full">
-              Login
-            </Button>
-          </Form.Item>
-        </Form>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="w-full">
+                Login
+              </Button>
+            </Form.Item>
+          </Form>
 
-        <p>
-          Do not have an account? <Link href="/signup">Sign Up</Link>
-        </p>
+          <p>
+            Do not have an account? <Link href="/signup">Sign Up</Link>
+          </p>
+        </div>
       </div>
     );
   }

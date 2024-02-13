@@ -30,7 +30,7 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <Image src={logo} alt="Logo" className="w-30 h-15 mb-4" />
+      <Image src={logo} alt="Logo" className="mb-4" width={130} height={60} />
 
       <Title level={2}>Sign Up</Title>
 
