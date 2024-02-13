@@ -187,9 +187,6 @@ const AdminPostTable: React.FC<AdminPostTableProps> = ({ data }) => {
             <Input type="number" />
           </Form.Item>
 
-          <Form.Item label="Image" name="image">
-            <Input />
-          </Form.Item>
           <Button type="primary" htmlType="submit" danger>
             Update
           </Button>

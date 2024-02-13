@@ -13,6 +13,7 @@ interface PostData {
 }
 const HomePage = async () => {
   const { data } = await getAllPosts();
+  const colors = ["red", "green", "cyan", "indigo"];
 
   return (
     <div className="">
@@ -30,16 +31,20 @@ const HomePage = async () => {
       </div>
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap -mx-4">
-          {data?.map((data: PostData) => (
-            <div
-              key={data.id}
-              className="flex sm:w-4/4 md:w-1/3 lg:w-1/4 xl:w-1/4 px-4 mb-8"
-            >
-              <Link href={`/donation/${data.id}`}>
-                <PostCard data={data} />
-              </Link>
-            </div>
-          ))}
+          {data?.map((data: PostData, index: number) => {
+            const currentColor = colors[index % colors.length];
+
+            return (
+              <div
+                key={data.id}
+                className="flex sm:w-4/4 md:w-1/3 lg:w-1/4 xl:w-1/4 px-4 mb-8"
+              >
+                <Link href={`/donation/${data.id}`}>
+                  <PostCard data={data} color={currentColor} />
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

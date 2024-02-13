@@ -1,30 +1,55 @@
 "use client";
 import { createPost } from "@/utils/createPost";
 import { Button, Form, Input, InputNumber } from "antd";
+import imageCompression from "browser-image-compression";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 const CreatePostForm = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const [form] = Form.useForm();
+
+  const handleImageChange = async (e: any) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    const compressedFile = await imageCompression(file, {
+      maxSizeMB: 0.048, // Specify the maximum size of the compressed image
+      maxWidthOrHeight: 800, // Specify the maximum width or height of the compressed image
+      useWebWorker: true, // Specify whether to use Web Workers for image compression
+    });
+
+    reader.onloadend = () => {
+      setSelectedImage(reader.result as any);
+    };
+
+    if (compressedFile) {
+      reader.readAsDataURL(compressedFile);
+    }
+  };
+
   const onFinish = async (values: any) => {
-    const { title, description, category, targetAmount, raisedAmount, image } =
-      values;
+    const { title, description, category, targetAmount, raisedAmount } = values;
     const result = await createPost({
       title,
       description,
       category,
       targetAmount,
       raisedAmount,
-      image,
+      image: selectedImage,
     });
     if (result.success) {
       toast.success("Create Post successfully");
+      form.resetFields();
     } else {
       toast.error("Failed");
     }
-    // You can handle the submission of the post data (values) here
   };
 
   return (
     <Form
+      form={form}
       name="createPostForm"
       onFinish={onFinish}
       labelCol={{ span: 6 }}
@@ -85,13 +110,12 @@ const CreatePostForm = () => {
       </Form.Item>
 
       <Form.Item
-        label="Image URL"
+        label="Image Upload"
         name="image"
-        rules={[{ required: true, message: "Please enter the image URL!" }]}
+        rules={[{ required: true, message: "Please upload an image!" }]}
       >
-        <Input />
+        <input type="file" accept="image/*" onChange={handleImageChange} />
       </Form.Item>
-
       <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
         <Button type="primary" danger htmlType="submit">
           Create Post

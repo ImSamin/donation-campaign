@@ -7,7 +7,9 @@ export const getAllPosts = async (search?: string) => {
   }
 
   const res = await fetch(url, {
-    cache: "no-store",
+    next: {
+      revalidate: 5,
+    },
   });
 
   return res.json();

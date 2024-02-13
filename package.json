@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.0",
     "antd": "^5.14.0",
+    "browser-image-compression": "^2.0.2",
     "next": "14.1.0",
     "next-auth": "^4.24.5",
     "react": "^18",
