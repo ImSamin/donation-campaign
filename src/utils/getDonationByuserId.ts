@@ -7,7 +7,7 @@ export const getDonationByUserId = async () => {
     `https://donation-campaign-backend.vercel.app/api/v1/donation/?id=${session?.id}`,
     {
       next: {
-        revalidate: 15,
+        revalidate: 5,
       },
     }
   );
