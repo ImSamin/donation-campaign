@@ -1,8 +1,10 @@
+"use client";
 import banner from "@/assets/banner.png";
 import PostCard from "@/components/ui/PostCard";
 import SearchInput from "@/components/ui/SearchInput";
 import { getAllPosts } from "@/utils/getAllPosts";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 interface PostData {
   id: string;
   title: string;
@@ -11,9 +13,28 @@ interface PostData {
   targetAmount: number;
   raisedAmount: number;
 }
-const HomePage = async () => {
-  const { data } = await getAllPosts();
+const HomePage = () => {
+  //const { data } = await getAllPosts();
   const colors = ["red", "green", "cyan", "indigo"];
+
+  const [posts, setPosts] = useState<PostData[]>([]);
+  const fetchPosts = async (search?: string) => {
+    try {
+      const response = await getAllPosts(search);
+      setPosts(response.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const handleSearch = async (search: string) => {
+    // Fetch posts based on the search query
+    await fetchPosts(search);
+  };
 
   return (
     <div className="">
@@ -26,12 +47,12 @@ const HomePage = async () => {
           <h1 className="text-4xl font-bold mb-10 mx-5">
             I Grow By Helping People In Need
           </h1>
-          <SearchInput />
+          <SearchInput onSearch={handleSearch} />
         </div>
       </div>
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap -mx-4">
-          {data?.map((data: PostData, index: number) => {
+          {posts?.map((data: PostData, index: number) => {
             const currentColor = colors[index % colors.length];
 
             return (

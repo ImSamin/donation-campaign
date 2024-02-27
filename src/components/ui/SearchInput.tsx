@@ -1,14 +1,15 @@
 "use client";
-import { getAllPosts } from "@/utils/getAllPosts";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import React, { useState } from "react";
-
-const SearchInput: React.FC = () => {
+interface SearchInputProps {
+  onSearch: (searchQuery: string) => void;
+}
+const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
   const [search, setSearch] = useState<string>("");
 
-  const handleSearch = async () => {
-    const result = await getAllPosts(search);
+  const handleSearch = () => {
+    onSearch(search);
   };
 
   return (
